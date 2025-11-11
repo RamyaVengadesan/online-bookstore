@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Account</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+    }
+
+    /* Matching login background */
+    .register-bg {
+      background: 
+        linear-gradient(rgba(93, 78, 55, 0.85), rgba(61, 47, 31, 0.9)),
+        url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600') center/cover no-repeat;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .register-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1100px;
+      gap: 60px;
+    }
+
+    .register-text {
+      flex: 1;
+      color: white;
+    }
+
+    .register-text h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+      color: #f4e4c1;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      letter-spacing: 1px;
+    }
+
+    .register-text p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: rgba(244, 228, 193, 0.95);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .register-card-modern {
+      width: 450px;
+      padding: 50px;
+      background: rgba(255,255,255,0.98);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      border: 3px solid #8b7355;
+    }
+
+    .register-card-modern h2 {
+      margin-bottom: 30px;
+      font-size: 32px;
+      text-align: center;
+      color: #3d2f1f;
+      border-bottom: 3px solid #8b7355;
+      padding-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    .register-card-modern label {
+      display: block;
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #3d2f1f;
+    }
+
+    .register-card-modern input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 8px;
+      border: 2px solid #d4c4a8;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: #fefef8;
+      font-family: 'Georgia', serif;
+    }
+
+    .register-card-modern input:focus {
+      outline: none;
+      border-color: #8b7355;
+      box-shadow: 0 0 0 3px rgba(139,115,85,0.1);
+      background: white;
+    }
+
+    .register-card-modern button {
+      width: 100%;
+      padding: 16px;
+      margin-top: 30px;
+      background: linear-gradient(135deg, #5d4e37 0%, #8b7355 100%);
+      border: 2px solid #3d2f1f;
+      border-radius: 6px;
+      color: #f4e4c1;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Georgia', serif;
+    }
+
+    .register-card-modern button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(93,78,55,0.4);
+      background: linear-gradient(135deg, #6d5e47 0%, #9b8365 100%);
+    }
+
+    .login-text {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 15px;
+      color: #5d4e37;
+    }
+
+    .login-text a {
+      color: #3d2f1f;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    .login-text a:hover {
+      border-bottom-color: #3d2f1f;
+    }
+
+    @media (max-width: 768px) {
+      .register-container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .register-card-modern {
+        width: 100%;
+        max-width: 450px;
+      }
+    }
+  </style>
+</head>
+<body class="register-bg">
+  <div class="register-container">
+    <div class="register-text">
+      <h1>Join Our Bookstore Community 📚</h1>
+      <p>Create your free account to start shopping, saving favorites, and enjoying exclusive offers!</p>
+    </div>
+
+    <div class="register-card-modern">
+      <h2>Create Account</h2>
+      <form action="registration.php" method="POST">
+        <label for="fullname">Full Name</label>
+        <input type="text" name="fullname" id="fullname" placeholder="Enter full name" required>
+
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Enter username" required>
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Enter email" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter password" required>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" required>
+
+        <button type="submit">Register</button>
+
+        <p class="login-text">Already have an account? <a href="login.html">Log in</a></p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

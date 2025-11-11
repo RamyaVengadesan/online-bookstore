@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Left Frame</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function setActive(element) {
+            document.querySelectorAll('.left-menu a').forEach(a => a.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
+</head>
+<body class="left-menu">
+    <h3>DEPARTMENTS</h3>
+    <ul>
+        <li><a href="catalogue.php?dept=all" target="rightFrame" onclick="setActive(this)">All Books</a></li>
+        <li><a href="catalogue.php?dept=cse" target="rightFrame" onclick="setActive(this)">Computer Science</a></li>
+        <li><a href="catalogue.php?dept=ece" target="rightFrame" onclick="setActive(this)">Electronics</a></li>
+        <li><a href="catalogue.php?dept=eee" target="rightFrame" onclick="setActive(this)">Electrical</a></li>
+        <li><a href="catalogue.php?dept=civil" target="rightFrame" onclick="setActive(this)">Civil Engineering</a></li>
+    </ul>
+</body>
+</html>

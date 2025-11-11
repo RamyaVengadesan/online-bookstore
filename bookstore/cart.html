@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let cartSummary = {};
+
+            cart.forEach(item => {
+                if (!cartSummary[item.name]) {
+                    cartSummary[item.name] = { price: item.price, quantity: 1 };
+                } else {
+                    cartSummary[item.name].quantity++;
+                }
+            });
+
+            let tbody = document.getElementById('cartBody');
+            tbody.innerHTML = '';
+            let total = 0;
+
+            let keys = Object.keys(cartSummary);
+            if (keys.length === 0) {
+                document.getElementById('emptyCart').style.display = 'block';
+                document.getElementById('cartSummary').style.display = 'none';
+                return;
+            } else {
+                document.getElementById('emptyCart').style.display = 'none';
+                document.getElementById('cartSummary').style.display = 'block';
+            }
+
+            keys.forEach(book => {
+                let qty = cartSummary[book].quantity;
+                let price = cartSummary[book].price;
+                let subtotal = qty * price;
+                total += subtotal;
+
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="text-align: left; font-weight: 600;">${book}</td>
+                    <td>${qty}</td>
+                    <td>Rs ${price.toFixed(2)}</td>
+                    <td><strong>Rs ${subtotal.toFixed(2)}</strong></td>
+                    <td>
+                        <button class="remove-btn" onclick="removeOne('${book}')">Remove One</button>
+                        <button class="remove-all-btn" onclick="removeAll('${book}')" style="margin-left: 5px;">Remove All</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('cartTotal').textContent = "Rs " + total.toFixed(2);
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function removeOne(bookName) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let index = cart.findIndex(item => item.name === bookName);
+            if (index !== -1) {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function removeAll(bookName) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.filter(item => item.name !== bookName);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function clearCart() {
+            if (confirm('Are you sure you want to clear the entire cart?')) {
+                localStorage.removeItem('cart');
+                loadCart();
+            }
+        }
+
+        function goToCatalog() {
+            window.location.href = 'catalogue.php';
+        }
+
+        function checkout() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            alert('Order placed successfully! Total items: ' + cart.length);
+            localStorage.removeItem('cart');
+            loadCart();
+        }
+
+        window.onload = loadCart;
+    </script>
+</head>
+<body class="cart-frame">
+    <div class="cart-view">
+        <h2>Your Shopping Cart</h2>
+
+        <div id="emptyCart" style="display:none; text-align:center; padding: 60px;">
+            <div style="font-size: 48px; margin-bottom: 20px; color: #8b7355;">&#128722;</div>
+            <h3 style="color: #3d2f1f;">Your cart is empty</h3>
+            <p style="color: #5d4e37; margin: 20px 0;">Start adding some books to your cart!</p>
+            <button onclick="goToCatalog()" style="background: #5d4e37; padding: 14px 28px;">Browse Books</button>
+        </div>
+
+        <div id="cartSummary">
+            <div style="text-align: right; margin-bottom: 20px; color: #5d4e37;">
+                Total Items: <strong id="cartCount">0</strong>
+            </div>
+            
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Book Title</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Subtotal</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="cartBody"></tbody>
+            </table>
+            
+            <div style="text-align: right; margin: 30px 0; padding: 20px; background: #fefef8; border-radius: 8px; border: 2px solid #8b7355;">
+                <h3 style="margin: 0; color: #3d2f1f;">Grand Total: <span id="cartTotal" style="color: #5d4e37;">Rs 0.00</span></h3>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; gap: 10px;">
+                <button onclick="clearCart()" style="background: #c0392b; flex: 1;">Clear Cart</button>
+                <button onclick="goToCatalog()" style="background: #8b7355; flex: 1;">Continue Shopping</button>
+                <button onclick="checkout()" style="background: #5d4e37; flex: 1;">Checkout</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
